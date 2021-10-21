@@ -3,8 +3,18 @@ const date = document.querySelector('.date');
 const greeting = document.querySelector('.greeting');
 const name = document.querySelector('.name');
 const body = document.getElementsByTagName('body')[0];
+
 const leftSlideButton = document.querySelector('.slide-prev');
 const rightSlideButton = document.querySelector('.slide-next')
+
+const weatherIcon = document.querySelector('.weather-icon');
+const temperature = document.querySelector('.temperature');
+const weatherDescription = document.querySelector('.weather-description');
+const city = document.querySelector('.city');
+
+const quote = document.querySelector('.quote');
+const author = document.querySelector('.author');
+const changeQuote = document.querySelector('.change-quote');
 
 
 //time
@@ -97,3 +107,47 @@ rightSlideButton.addEventListener('click', () => {
     bgNum = getSlideNext();
     setBg();
 })
+
+
+
+//WEATHER
+
+async function getWeather() {
+    const url = `https://api.openweathermap.org/data/2.5/forecast?id=524901&q=${city.value}&lang=ru&appid=cfe62a6645722176464f799a227a1ab5&units=metric`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data.list[0].weather[0].description);
+
+    weatherIcon.className = 'weather-icon owf';
+    weatherIcon.classList.add(`owf-${data.list[0].weather[0].id}`);
+    temperature.textContent = `${Math.round(data.list[0].main.temp * 10)/10}°C`;
+    weatherDescription.textContent = data.list[0].weather[0].description;
+}
+getWeather();
+
+function setCity(event) {
+    if (event.code === 'Enter') {
+        getWeather();
+        city.blur();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', getWeather);
+city.addEventListener('keypress', setCity);
+// city.addEventListener('mouseover', () => {city.addEventListener('mouseout', setCity)});
+
+
+//QUOTES
+async function getQuotes() {
+    const quotes = 'assets/quotes/data.json';
+    const res = await fetch(quotes);
+    const data = await res.json();
+
+    const number = getRandomNum(data.length);
+    quote.textContent = data[number].text;
+    author.textContent = data[number].author;
+    console.log(number);
+}
+getQuotes();
+
+changeQuote.addEventListener('click', getQuotes);

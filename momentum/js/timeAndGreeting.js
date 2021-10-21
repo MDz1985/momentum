@@ -16,6 +16,13 @@ const quote = document.querySelector('.quote');
 const author = document.querySelector('.author');
 const changeQuote = document.querySelector('.change-quote');
 
+const player = document.querySelector('.player');
+const playButton = player.querySelector('.play');
+const playPrevButton = player.querySelector('.play-prev');
+const playNextButton = player.querySelector('.play-next');
+
+const playListContainer = player.querySelector('.play-list');
+
 
 //time
 function showTime(){
@@ -151,3 +158,72 @@ async function getQuotes() {
 getQuotes();
 
 changeQuote.addEventListener('click', getQuotes);
+
+
+
+//AUDIO-PLAYER
+const audio = new Audio();
+let playNum = 0;
+// audio.src = playList[playNum].src;
+// audio.src = 'assets/sounds/aqua caelestis.mp3';
+audio.currentTime = 0;
+let isPlay = false;
+let audioTime = audio.currentTime;
+
+
+function playAudio() {
+    audio.src = playList[playNum].src;
+    playListContainer.childNodes[playNum].style.color = 'gold';
+    if (!isPlay){
+        audio.play();
+        isPlay = true;
+        playButton.classList.add('pause'); // добавляет элементу класс;
+    } else {
+        audio.pause();
+        isPlay = false;
+        playButton.classList.remove('pause');
+    }
+}
+
+
+function playPrevious(){
+    playListContainer.childNodes[playNum].style.color = 'white';
+    if (playNum === 0){
+      playNum = playList.length - 1;
+    }else {
+        playNum -= 1;
+    }
+    isPlay = false;
+    playAudio()
+}
+function playNext(){
+    playListContainer.childNodes[playNum].style.color = 'white';
+    if (playNum === playList.length - 1){
+        playNum = 0;
+    }else {
+        playNum += 1;
+    }
+    isPlay = false;
+    playAudio()
+}
+playButton.addEventListener('click', playAudio);
+playPrevButton.addEventListener('click', playPrevious);
+playNextButton.addEventListener('click', playNext);
+audio.addEventListener("timeupdate", () => {
+    if (audio.currentTime === audio.duration){
+        playNext();
+    }
+})
+
+
+//IMPORT PLAYLIST
+import playList from './playList.js';
+// console.log(playList[0].title);
+
+playList.forEach(el => {
+    const li = document.createElement('li');
+    li.classList.add('playlist-item');
+    li.textContent = el.title;
+    playListContainer.append(li);
+})
+

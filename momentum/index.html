@@ -14,9 +14,33 @@
         <button class="play-prev player-icon"></button>
         <button class="play player-icon"></button>
         <button class="play-next player-icon"></button>
+        <div>
+          <p class="title"></p>
+          <div class="progress-box">
+            <span class="current-time">
+              00:00
+            </span>
+            <div class="progress progress-slider">
+              <div class="progress-filled progress-slider-filled"></div>
+            </div>
+            <span class="duration">
+              00:00
+            </span>
+            <div class="progress volume-slider">
+              <div class="progress-filled volume-slider-filled"></div>
+            </div>
+            <button class="volume player-icon"></button>
+          </div>
+        </div>
       </div>
       <ul class="play-list"></ul>
     </div>
+    <form>
+      <select class="lang">
+        <option>English</option>
+        <option>Русский</option>
+      </select>
+    </form>
     <div class="weather">
       <input type="text" class="city" />
       <i class="weather-icon owf"></i>
@@ -38,19 +62,88 @@
     <date class="date"></date>
     <div class="greeting-container">
       <span class="greeting"></span>
-      <input type="text" class="name" />
+      <input type="text" class="name" placeholder="<Your Name>"/>
     </div>
   </main>
   <footer class="footer">
     <button class="change-quote"></button>
-    <div>
-      <div class="quote"></div>
-      <div class="author"></div>
+    <div class="footer-box">
+      <button class="settings"></button>
+      <div>
+        <div class="quote"></div>
+        <div class="author"></div>
+      </div>
+      <a href="#">RS-SCHOOL</a>
     </div>
+    <nav class="nav">
+      <h2>Settings</h2>
+      <ul class="menu">
+        <li class="menu-item">
+          <h3>Show</h3>
+        </li>
+        <li class="menu-item">
+          <span>
+            Time
+          </span>
+          <form class="form">
+            <input class="inputs" id="time" type="checkbox">
+            <label class="labels" for="time"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span>
+            Date
+          </span>
+          <form class="form">
+            <input class="inputs" id="date" type="checkbox">
+            <label class="labels" for="date"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span>
+            Greeting
+          </span>
+          <form class="form">
+            <input class="inputs" id="greeting" type="checkbox">
+            <label class="labels" for="greeting"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span>
+            Quotes
+          </span>
+          <form class="form">
+            <input class="inputs" id="quotes" type="checkbox">
+            <label class="labels" for="quotes"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span>
+            Weather
+          </span>
+          <form class="form">
+            <input class="inputs" id="weather" type="checkbox">
+            <label class="labels" for="weather"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span>
+            Player
+          </span>
+          <form class="form">
+            <input class="inputs" id="player" type="checkbox">
+            <label class="labels" for="player"></label>
+          </form>
+        </li>
+
+
+      </ul>
+    </nav>
+
   </footer>
-  <script src="js/script.js"></script>
-  <script type="module" src="js/timeAndGreeting.js"></script>
-  <script src="js/slider.js"></script>
+  <script src="js/main.js"></script>
+<!--  <script type="module" src="js/timeAndGreeting.js"></script>-->
+<!--  <script src="js/slider.js"></script>-->
 
 </body>
 </html>

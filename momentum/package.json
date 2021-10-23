@@ -1,0 +1,17 @@
+{
+  "name": "momentum",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "node_modules/.bin/webpack --progress",
+    "start": "node_modules/.bin/webpack-dev-server"
+  },
+  "dependencies": {
+    "html-loader": "^3.0.0",
+    "html-webpack-plugin": "^5.4.0",
+    "webpack": "^5.59.1",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.3.1"
+  }
+}

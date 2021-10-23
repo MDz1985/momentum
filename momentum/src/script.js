@@ -23,10 +23,33 @@ const playButton = player.querySelector('.play');
 const playPrevButton = player.querySelector('.play-prev');
 const playNextButton = player.querySelector('.play-next');
 
+const title = player.querySelector('.title');
+const progressBar = player.querySelector('.progress-slider-filled');
+const progress = player.querySelector('.progress-slider')
+const currentTime = player.querySelector('.current-time');
+const duration = player.querySelector('.duration');
+const volumeBar = player.querySelector('.volume-slider-filled');
+const volume = player.querySelector('.volume-slider');
+const volumeButton = player.querySelector('.volume');
+
+
 const playListContainer = player.querySelector('.play-list');
 
 
 const lang = document.querySelector('.lang');
+
+const menuButton = document.querySelector('.settings');
+const settingsMenu = document.querySelector('.nav');
+
+const offTime = document.getElementById('time');
+const offDate = document.getElementById('date');
+const offGreeting = document.getElementById('greeting');
+const offQuotes = document.getElementById('quotes');
+const offWeather = document.getElementById('weather');
+const offPlayer = document.getElementById('player');
+
+
+
 
 
 //time
@@ -83,6 +106,7 @@ function getTimeOfDay(hours){
 }
 
 //name
+
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
     localStorage.setItem('city', city.value);
@@ -94,6 +118,7 @@ function getLocalStorage() {
     }
     if(localStorage.getItem('city')) {
         city.value = localStorage.getItem('city');
+        setCity()
     }
 }
 window.addEventListener('load', getLocalStorage)
@@ -148,6 +173,13 @@ async function getWeather(language) {
     const url = `https://api.openweathermap.org/data/2.5/forecast?id=524901&q=${city.value}&lang=${language}&appid=cfe62a6645722176464f799a227a1ab5&units=metric`;
     const res = await fetch(url);
     const data = await res.json();
+    if (data.cod === '400' || data.city.population === 0){
+        if (language === 'en') {
+            alert('Wrong city name or there is no information for this town!')
+        } else {
+            alert('Неверное название города, или нет информации о погоде в этом городе!');
+        }
+    }
     let ms;
     if (language === 'ru')  {
         ms = ' м/с';
@@ -168,18 +200,22 @@ async function getWeather(language) {
     humidity.textContent = data.list[0].main.humidity + ' %';
 }
 
-// getWeather(weatherLang);
+
 
 function setCity(event) {
-    if (event.code === 'Enter') {
+    if (!event){
+        getWeather(weatherLang).then();
+        city.blur();
+    } else if (event.code === 'Enter' || event.type === 'mouseleave') {
         getWeather(weatherLang).then();
         city.blur();
     }
+
 }
 
 document.addEventListener('DOMContentLoaded', getWeather);
 city.addEventListener('keypress', setCity);
-// city.addEventListener('mouseover', () => {city.addEventListener('mouseout', setCity)});
+city.addEventListener('mouseenter', () => {city.addEventListener('mouseleave', setCity)});
 
 
 //QUOTES
@@ -201,21 +237,24 @@ changeQuote.addEventListener('click', getQuotes);
 //AUDIO-PLAYER
 const audio = new Audio();
 let playNum = 0;
-// audio.src = playList[playNum].src;
-// audio.src = 'assets/sounds/aqua caelestis.mp3';
-audio.currentTime = 0;
 let isPlay = false;
-let audioTime = audio.currentTime;
+let audioTime = 0;
 
 
 function playAudio() {
     audio.src = playList[playNum].src;
+    duration.textContent = playList[playNum].duration;
+    title.innerText = playList[playNum].title;
     playListContainer.childNodes[playNum].style.color = 'gold';
     if (!isPlay){
+        audio.currentTime = audioTime;
         audio.play();
         isPlay = true;
         playButton.classList.add('pause'); // добавляет элементу класс;
     } else {
+        console.log(audio.currentTime);
+        audioTime = audio.currentTime;
+        console.log(audioTime);
         audio.pause();
         isPlay = false;
         playButton.classList.remove('pause');
@@ -226,7 +265,7 @@ function playAudio() {
 function playPrevious(){
     playListContainer.childNodes[playNum].style.color = 'white';
     if (playNum === 0){
-      playNum = playList.length - 1;
+        playNum = playList.length - 1;
     }else {
         playNum -= 1;
     }
@@ -246,16 +285,94 @@ function playNext(){
 playButton.addEventListener('click', playAudio);
 playPrevButton.addEventListener('click', playPrevious);
 playNextButton.addEventListener('click', playNext);
-audio.addEventListener("timeupdate", () => {
+audio.addEventListener('timeupdate', () => {
     if (audio.currentTime === audio.duration){
         playNext();
     }
-})
 
+    progressFunc();
+})
+//PROGRESS
+
+function audioCurrentTime(audioTime) {
+    let time = new Date(audioTime * 1000);
+    return {m: String(time.getMinutes()).padStart(2, '0'), s: String(time.getSeconds()).padStart(2, '0')};
+}
+
+function progressFunc() {
+    progressBar.style.flexBasis = `${(audio.currentTime / audio.duration) * 100}%`;
+    currentTime.textContent = `${audioCurrentTime(audio.currentTime).m}:${audioCurrentTime(audio.currentTime).s}`
+}
+
+function move(e) {
+    progressBar.style.flexBasis = String(e.offsetX/progress.offsetWidth*100) + '%';
+    audio.currentTime = (e.offsetX / progress.offsetWidth) * audio.duration;
+}
+
+progress.addEventListener("mousedown", function(e){
+    console.log(e);
+    move(e);
+    this.addEventListener("mousemove", move);
+});
+
+progress.addEventListener("mouseup", function(e){
+    this.removeEventListener("mousemove", move);
+});
+
+
+//VOLUME BUTTON
+
+let volumeStatus = 'volume';
+let prevVolume = 0.01;
+
+function noVolume() {
+    if (audio.volume > 0){
+        prevVolume = audio.volume;
+        audio.volume = 0;
+        volumeBar.style.flexBasis = '0%';
+        volumeButton.classList.add('mute');
+            // .src = 'assets/svg/player/mute.svg';
+        volumeStatus = 'mute';
+    } else {
+        volumeBar.style.flexBasis = String(prevVolume*100) + '%';
+        audio.volume = prevVolume;
+        volumeButton.classList.remove('mute');
+        volumeStatus = 'volume';
+        prevVolume = 0.01;
+    }
+
+}
+volumeButton.addEventListener('click', noVolume)
+
+//VOLUME
+function moveVolume(e) {
+    volumeBar.style.flexBasis = String(Math.floor(10000 * e.offsetX / volume.offsetWidth) / 100) + '%';
+    if (Math.floor(100 * e.offsetX / volume.offsetWidth) / 100 < 0){
+        audio.volume = 0;
+    } else if (Math.floor(100 * e.offsetX / volume.offsetWidth) / 100 > 1){
+        audio.volume = 1;
+    } else{
+        audio.volume = Math.floor(100 * e.offsetX / volume.offsetWidth) / 100;
+    }
+    if (audio.volume === 0) {
+        volumeButton.classList.add('mute');
+    } else {
+        volumeButton.classList.remove('mute');
+    }
+}
+
+volume.addEventListener("mousedown", function(e){
+    moveVolume(e);
+    this.addEventListener('mousemove', moveVolume);
+});
+
+volume.addEventListener("mouseup", function(e){
+    this.removeEventListener('mousemove', moveVolume);
+});
 
 //IMPORT PLAYLIST
 import playList from './playList.js';
-// console.log(playList[0].title);
+
 
 playList.forEach(el => {
     const li = document.createElement('li');
@@ -276,8 +393,28 @@ lang.addEventListener('change', function (){
 
     }else {
         weatherLang = 'ru';
-
     }
     getWeather(weatherLang).then()
 });
 
+//MENU
+
+let visible = false
+function hideMenu(){
+    console.log(3);
+    if (!visible){
+        visible = true;
+        settingsMenu.style.opacity = '1';
+    } else {
+        visible = false;
+        settingsMenu.style.opacity = '0';
+    }
+}
+menuButton.addEventListener('click', hideMenu);
+
+function hideItem(item){
+    item.style.opacity = '0';
+    item.style.userSelect = 'none';
+}
+
+offTime.addEventListener('change', () => {hideItem(time)});

@@ -42,6 +42,7 @@ body {
   width: 180px;
   min-height: 180px;
   text-align: left;
+  transition: opacity 500ms ease-in-out;
 }
 
 .weather-error {
@@ -114,12 +115,14 @@ body {
   font-family: 'Arial-MT';
   font-size: 100px;
   letter-spacing: -4px;
+  transition: opacity 500ms ease-in-out;
 }
 
 .date {
   min-height: 28px;
   font-size: 24px;
   margin-bottom: 20px;
+  transition: opacity 500ms ease-in-out;
 }
 
 .greeting-container {
@@ -136,6 +139,7 @@ body {
   flex: 1;
   padding: 10px;
   text-align: right;
+  transition: opacity 500ms ease-in-out;
 }
 
 .name {
@@ -148,7 +152,7 @@ body {
   background-color: transparent;
   border: 0;
   outline: 0;
-
+  transition: opacity 500ms ease-in-out;
 }
 
 .name::placeholder {
@@ -173,10 +177,24 @@ body {
   align-items: center;
   width: 100%;
 }
+
+.links{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.8rem ;
+  height: 100%;
+  width: 100px;
+  text-align: right;
+  a{
+    color: white;
+    text-decoration: none;
+  }
+}
+
 .settings {
-  background: url(../assets/svg/settings.svg) no-repeat;
   background-size: 32px 32px;
-  background-position: center center;
+  background: url(../assets/svg/settings.svg) no-repeat center center;
   width: 44px;
   margin: auto 0;
   position: relative;
@@ -184,6 +202,20 @@ body {
   border: none;
   cursor: pointer;
   user-select: none;
+
+  border: 0;
+  outline: 0;
+  opacity: 0.8;
+}
+
+.settings:hover{
+  opacity: 1;
+}
+
+.settings:active{
+  border: 0;
+  outline: 0;
+  transform: scale(1.1);
 }
 
 .nav{
@@ -208,7 +240,7 @@ body {
 }
 .menu-item:after{
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
   content: "";
   height: 2px;
   width: 100%;
@@ -253,6 +285,11 @@ body {
 .change-quote {
   margin-bottom: 30px;
   background-image: url("../assets/svg/reload.svg");
+  transition: opacity 500ms ease-in-out;
+}
+
+.quotes{
+  transition: opacity 500ms ease-in-out;
 }
 
 .quote {

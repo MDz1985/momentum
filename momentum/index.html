@@ -42,7 +42,7 @@
       </select>
     </form>
     <div class="weather">
-      <input type="text" class="city" />
+      <input type="text" class="city"/>
       <i class="weather-icon owf"></i>
       <div class="weather-error"></div>
       <div class="description-container">
@@ -69,11 +69,15 @@
     <button class="change-quote"></button>
     <div class="footer-box">
       <button class="settings"></button>
-      <div>
+      <div class="quotes">
         <div class="quote"></div>
         <div class="author"></div>
       </div>
-      <a href="#">RS-SCHOOL</a>
+      <div class="links">
+        <a href="https://github.com/MDz1985">MDz1985</a>
+        <a href="https://rs.school/js/">RS-SCHOOL</a>
+        <p>©2021</p>
+      </div>
     </div>
     <nav class="nav">
       <h2>Settings</h2>
@@ -86,7 +90,7 @@
             Time
           </span>
           <form class="form">
-            <input class="inputs" id="time" type="checkbox">
+            <input class="inputs" id="time" type="checkbox" checked>
             <label class="labels" for="time"></label>
           </form>
         </li>
@@ -95,43 +99,43 @@
             Date
           </span>
           <form class="form">
-            <input class="inputs" id="date" type="checkbox">
+            <input class="inputs" id="date" type="checkbox" checked>
             <label class="labels" for="date"></label>
           </form>
         </li>
         <li class="menu-item">
-          <span>
+          <span class="greeting-name">
             Greeting
           </span>
           <form class="form">
-            <input class="inputs" id="greeting" type="checkbox">
+            <input class="inputs" id="greeting" type="checkbox" checked>
             <label class="labels" for="greeting"></label>
           </form>
         </li>
         <li class="menu-item">
-          <span>
+          <span class="quotes-name">
             Quotes
           </span>
           <form class="form">
-            <input class="inputs" id="quotes" type="checkbox">
+            <input class="inputs" id="quotes" type="checkbox" checked>
             <label class="labels" for="quotes"></label>
           </form>
         </li>
         <li class="menu-item">
-          <span>
+          <span class="weather-name">
             Weather
           </span>
           <form class="form">
-            <input class="inputs" id="weather" type="checkbox">
+            <input class="inputs" id="weather" type="checkbox" checked>
             <label class="labels" for="weather"></label>
           </form>
         </li>
         <li class="menu-item">
-          <span>
+          <span class="player-name">
             Player
           </span>
           <form class="form">
-            <input class="inputs" id="player" type="checkbox">
+            <input class="inputs" id="player" type="checkbox" checked>
             <label class="labels" for="player"></label>
           </form>
         </li>

@@ -1,9 +1,21 @@
 
+.player{
+  transition: opacity 500ms ease-in-out;
+  width: 400px;
+}
+
+.playlist-item{
+  display: inline-flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .player-controls {
   display: flex;
+  flex-flow: row wrap;
   align-items: center;
-  justify-content: space-between;
-  width: 400px;
+  justify-content: center;
+  width: 100%;
   margin-bottom: 28px;
   p{
     height: 17px;
@@ -12,6 +24,7 @@
 
 .play-list {
   text-align: left;
+  width: 100%;
 }
 
 .play-item {
@@ -90,6 +103,8 @@
 }
 .progress-box{
   display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
   width: 400 - 120px;
   height: 20px;
@@ -107,12 +122,15 @@
   background: #C4C4C4;
   cursor: ew-resize;
   z-index: 1;
+
 }
 .progress-slider{
-  width: 150px;
+  //width: 150px;
+  min-width: 50%;
 }
 .volume-slider{
-  width: 50px;
+  min-width: 50%;
+  //width: 50px;
 }
 /* progress in progress*/
 .progress-filled {

@@ -209,7 +209,7 @@ async function getWeather(language) {
     }
     weatherIcon.className = 'weather-icon owf';
     weatherIcon.classList.add(`owf-${data.list[0].weather[0].id}`);
-    temperature.textContent = `${Math.round(data.list[0].main.temp * 10)/10}°C`;
+    temperature.textContent = `${Math.round(data.list[0].main.temp)}°C`;
     weatherDescription.textContent = data.list[0].weather[0].description;
     wind.textContent = windSpeed + Math.round(data.list[0].wind.speed) + ms;
     humidity.textContent = humidityValue + String(data.list[0].main.humidity) + ' %';

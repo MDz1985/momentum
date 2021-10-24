@@ -10,7 +10,7 @@
 }
 
 body {
-  min-width: 480px;
+
   min-height: 100vh;
   font-family: 'Arial', sans-serif;
   font-size: 16px;
@@ -195,7 +195,7 @@ body {
 .settings {
   background-size: 32px 32px;
   background: url(../assets/svg/settings.svg) no-repeat center center;
-  width: 44px;
+  width: 60px;
   margin: auto 0;
   position: relative;
   height: 39px;
@@ -219,6 +219,7 @@ body {
 }
 
 .nav{
+  background-color: #4a6b83b0;
   position: fixed;
   left: 10px;
   bottom: 100px;
@@ -300,23 +301,3 @@ body {
   min-height: 20px;
 }
 
-@media (max-width: 768px) {
-  .time {
-    min-height: 80px;
-    font-size: 72px;
-  }
-
-  .greeting-container {
-    min-height: 40px;
-    font-size: 32px;
-  }
-
-  .greeting {
-    padding: 5px;
-  }
-
-  .name {
-    font-size: 32px;
-    padding: 5px;
-  }
-}

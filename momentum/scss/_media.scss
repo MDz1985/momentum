@@ -1,0 +1,79 @@
+@media (max-width: 768px) {
+  .time {
+    min-height: 80px;
+    font-size: 72px;
+  }
+
+  .greeting-container {
+    min-height: 40px;
+    font-size: 32px;
+  }
+
+  .greeting {
+    padding: 5px;
+  }
+
+  .name {
+    font-size: 32px;
+    padding: 5px;
+  }
+
+  .player-controls{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 540px) {
+  body{
+    font-size: 14px;
+  }
+  .sliders{
+    padding-top: 10px;
+  }
+
+  .progress-box{
+    flex-wrap: wrap;
+  }
+
+  .progress-slider{
+    width: 70%;
+  }
+  .volume-slider{
+    width: 42%;
+  }
+  .weather{
+    min-width: 135px;
+  }
+  .city{
+    width: 113%;
+  }
+}
+@media (max-width: 485px) {
+  .wind, .humidity, .links{
+    display: none;
+  }
+  .player{
+    padding-right: 10px;
+  }
+
+  .weather{
+    min-width: 45px;
+    min-height: 118px;
+    position: relative;
+    top: 35px;
+  }
+
+  .time{
+    font-size: 13vw;
+  }
+  .name, .greeting{
+    font-size: 5vw;
+  }
+  .progress-slider{
+    width: calc(80% - 27px);
+  }
+  .lang{
+    position: fixed;
+  }
+}

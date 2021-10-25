@@ -180,12 +180,9 @@ body {
 
 .links{
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   font-size: 0.8rem ;
-  height: 100%;
-  width: 100px;
-  text-align: right;
+  width: 100%;
   a{
     color: white;
     text-decoration: none;
@@ -194,11 +191,11 @@ body {
 
 .settings {
   background-size: 32px 32px;
-  background: url(../assets/svg/settings.svg) no-repeat center center;
-  width: 60px;
+  background: url(../assets/svg/settings.svg) no-repeat center left;
+  width: 30px;
   margin: auto 0;
   position: relative;
-  height: 39px;
+  height: 30px;
   border: none;
   cursor: pointer;
   user-select: none;
@@ -219,14 +216,16 @@ body {
 }
 
 .nav{
-  background-color: #4a6b83b0;
+  background-color: #00000085;
   position: fixed;
   left: 10px;
   bottom: 100px;
   width: 300px;
   text-align: left;
+  display: none;
   opacity: 0;
   transition: opacity 500ms ease-in-out;
+  padding: 15px;
 }
 .menu{
   //position: relative;
@@ -300,4 +299,3 @@ body {
 .author {
   min-height: 20px;
 }
-

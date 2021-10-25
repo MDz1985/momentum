@@ -2,6 +2,7 @@
 .player{
   transition: opacity 500ms ease-in-out;
   width: 500px;
+  user-select: none;
 }
 
 .playlist-item{

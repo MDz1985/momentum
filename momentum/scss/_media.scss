@@ -50,6 +50,9 @@
   }
 }
 @media (max-width: 485px) {
+  body{
+    font-size: 12px;
+  }
   .wind, .humidity, .links{
     display: none;
   }
@@ -66,6 +69,7 @@
 
   .time{
     font-size: 13vw;
+    min-height: 55px;
   }
   .name, .greeting{
     font-size: 5vw;
@@ -75,5 +79,12 @@
   }
   .lang{
     position: fixed;
+  }
+  .main{
+    height: 27vh;
+    min-height: 185px;
+  }
+  .quote{
+    max-width: 255px;
   }
 }

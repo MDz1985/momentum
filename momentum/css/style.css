@@ -808,12 +808,9 @@ body {
 
 .links {
   display: flex;
-  flex-direction: column;
   justify-content: space-between;
   font-size: 0.8rem;
-  height: 100%;
-  width: 100px;
-  text-align: right;
+  width: 100%;
 }
 .links a {
   color: white;
@@ -822,11 +819,11 @@ body {
 
 .settings {
   background-size: 32px 32px;
-  background: url(../assets/svg/settings.svg) no-repeat center center;
-  width: 60px;
+  background: url(../assets/svg/settings.svg) no-repeat center left;
+  width: 30px;
   margin: auto 0;
   position: relative;
-  height: 39px;
+  height: 30px;
   border: none;
   cursor: pointer;
   user-select: none;
@@ -846,14 +843,16 @@ body {
 }
 
 .nav {
-  background-color: #4a6b83b0;
+  background-color: #00000085;
   position: fixed;
   left: 10px;
   bottom: 100px;
   width: 300px;
   text-align: left;
+  display: none;
   opacity: 0;
   transition: opacity 500ms ease-in-out;
+  padding: 15px;
 }
 
 .menu .menu-item {
@@ -928,6 +927,7 @@ body {
 .player {
   transition: opacity 500ms ease-in-out;
   width: 500px;
+  user-select: none;
 }
 
 .playlist-item {
@@ -1098,6 +1098,69 @@ body {
   background-image: url("../assets/svg/mute.svg");
 }
 
+.todo-container {
+  background-color: #00000085;
+  position: fixed;
+  right: 10px;
+  bottom: 100px;
+  pointer-events: none;
+  opacity: 0;
+  width: 220px;
+  padding: 15px;
+  transition: opacity 300ms ease-in-out;
+}
+
+.todo-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.todo-box div {
+  padding-bottom: 5px;
+}
+.todo-box .check {
+  margin-right: 10px;
+}
+
+.check:checked + span {
+  text-decoration: line-through;
+}
+
+.todo {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 5px;
+}
+
+.todo-button {
+  border: none;
+  background: transparent;
+  color: white;
+  opacity: 0.8;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.todo-button:hover, .x:hover {
+  opacity: 1;
+}
+
+.todo-button:active, .x:active {
+  border: 0;
+  outline: 0;
+  transform: scale(1.1);
+}
+
+.x {
+  user-select: none;
+  position: absolute;
+  right: 15px;
+  opacity: 0.8;
+}
+
 @media (max-width: 768px) {
   .time {
     min-height: 80px;
@@ -1153,6 +1216,10 @@ body {
   }
 }
 @media (max-width: 485px) {
+  body {
+    font-size: 12px;
+  }
+
   .wind, .humidity, .links {
     display: none;
   }
@@ -1170,6 +1237,7 @@ body {
 
   .time {
     font-size: 13vw;
+    min-height: 55px;
   }
 
   .name, .greeting {
@@ -1182,6 +1250,15 @@ body {
 
   .lang {
     position: fixed;
+  }
+
+  .main {
+    height: 27vh;
+    min-height: 185px;
+  }
+
+  .quote {
+    max-width: 255px;
   }
 }
 .lang {

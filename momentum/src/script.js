@@ -54,6 +54,13 @@ const offGreeting = document.getElementById('greeting');
 const offQuotes = document.getElementById('quotes');
 const offWeather = document.getElementById('weather');
 const offPlayer = document.getElementById('player');
+const offTodo = document.getElementById('todo');
+
+const todoContainer = document.querySelector('.todo-container');
+const todo = document.querySelector('.todo');
+const todoButton = document.querySelector('.todo-button');
+const xButton = document.querySelectorAll('.x');
+const checkDiv = document.querySelectorAll('.checkDiv')
 
 
 
@@ -65,6 +72,10 @@ function showTime(){
     time.textContent = String(dat.toLocaleTimeString('en-US', { hour12: false }));
     showDate();
     showGreeting();
+    if (dat.getHours() % 6 === 0 && dat.getMinutes() === 0 && dat.getSeconds() === 0){
+        setBg();
+    }
+
     setTimeout(showTime, 1000);
 }
 showTime();
@@ -113,10 +124,15 @@ function getTimeOfDay(hours){
 }
 
 //name
-
+let todoCount = 0
 function setLocalStorage() {
     localStorage.setItem('name', name.value);
     localStorage.setItem('city', city.value);
+    if(!localStorage.getItem('todoCount')){
+        localStorage.setItem('todoCount', todo.value)
+    } else {
+        localStorage.setItem('todoCount', localStorage.getItem('todoCount') + ',' + todo.value);
+    }
 }
 window.addEventListener('beforeunload', setLocalStorage)
 function getLocalStorage() {
@@ -128,6 +144,14 @@ function getLocalStorage() {
         setCity()
     } else {
         city.value = 'Minsk';
+    }
+    if(localStorage.getItem('todoCount')){
+        let array = localStorage.getItem('todoCount').split(',');
+        for (let i = 0; i < array.length; i++){
+            if (array[i] !== ''){
+                reloadTodo(array[i]);
+            }
+        }
     }
 }
 window.addEventListener('load', getLocalStorage)
@@ -308,9 +332,9 @@ function playAudio() {
         isPlay = true;
         playButton.classList.add('pause'); // добавляет элементу класс;
     } else {
-        console.log(audio.currentTime);
+        // console.log(audio.currentTime);
         audioTime = audio.currentTime;
-        console.log(audioTime);
+        // console.log(audioTime);
         audio.pause();
         isPlay = false;
         playButton.classList.remove('pause');
@@ -366,7 +390,7 @@ function move(e) {
 }
 
 progress.addEventListener("mousedown", function(e){
-    console.log(e);
+    // console.log(e);
     move(e);
     this.addEventListener("mousemove", move);
 });
@@ -448,8 +472,8 @@ const greetingTranslation = {
     ru: ['Доброе утро', 'Добрый день', 'Добрый вечер', 'Доброй ночи']
 };
 const menuTranslation = {
-    en: ['Settings', 'Show', 'Time', 'Date', 'Greeting', 'Quotes', 'Weather', 'Player'],
-    ru: ['Настройки', 'Отображать', 'Время', 'Дата', 'Приветствие', 'Цитаты', 'Погода', 'Плеер']
+    en: ['Settings', 'Show', 'Time', 'Date', 'Greeting', 'Quotes', 'Weather', 'Player', 'Todo'],
+    ru: ['Настройки', 'Отображать', 'Время', 'Дата', 'Приветствие', 'Цитаты', 'Погода', 'Плеер', 'Cписок дел']
 }
 
 lang.addEventListener('change', function (){
@@ -482,25 +506,31 @@ lang.addEventListener('change', function (){
 
 
 let visible = false
-function hideMenu(){
-    console.log(3);
+function hideMenu(value){
     if (!visible){
         visible = true;
-        settingsMenu.style.opacity = '1';
+        setTimeout(() => {value.style.opacity = '1';}, 200);
+        value.style.display ='block';
+
+
     } else {
         visible = false;
-        settingsMenu.style.opacity = '0';
+        value.style.opacity = '0';
+        setTimeout(() => {value.style.display ='none'}, 500);
     }
 }
-menuButton.addEventListener('click', hideMenu);
+menuButton.addEventListener('click', () => {
+    hideMenu(settingsMenu)
+});
 
 function hideItem(item){
     item.style.opacity = '0';
-    item.style.userSelect = 'none';
+    item.style.pointerEvents = 'none';
 }
 function visibleItem(item){
+    item.style.pointerEvents = 'all';
     item.style.opacity = '1';
-    item.style.userSelect = 'all';
+
 }
 
 function listener(button, element){
@@ -520,12 +550,89 @@ listener(offPlayer, player);
 listener(offQuotes, quotes);
 listener(offQuotes, changeQuote);
 listener(offWeather, weather);
+// listener(offTodo, todoButton);
+listener(offTodo, todoContainer);
+
+offTodo.addEventListener('change', () => {
+    if (!offTodo.checked) {
+        todoButton.style.visibility = 'hidden';
+        todoButton.style.pointerEvents = 'none';
+    } else{
+        todoButton.style.visibility = 'visible';
+        todoButton.style.pointerEvents = 'all';
+    }
+})
+
+function setTodo(event) {
+
+    if (event.code === 'Enter') {
+
+        const div = document.createElement('div');
+        div.classList.add('checkDiv');
+        todo.before(div);
+        const input = document.createElement('input');
+        input.classList.add('check');
+        input.setAttribute('type','checkbox');
+        div.append(input);
+        const span = document.createElement('span');
+        // span.classList.add('check');
+        span.innerText = todo.value;
+        input.after(span);
+        const spanX = document.createElement('span');
+        spanX.classList.add('x');
+        spanX.innerText = 'X';
+        span.after(spanX);
+        watch(spanX, div);
+
+        setLocalStorage();
+        todo.value = '';
+    }
+}
+
+function reloadTodo (value) {
+
+        const div = document.createElement('div');
+        div.classList.add('checkDiv');
+        todo.before(div);
+        const input = document.createElement('input');
+        input.classList.add('check');
+        input.setAttribute('type','checkbox');
+        div.append(input);
+        const span = document.createElement('span');
+        span.innerText = value;
+        input.after(span);
+        const spanX = document.createElement('span');
+        spanX.classList.add('x');
+        spanX.innerText = 'X';
+        span.after(spanX);
+        watch(spanX, div);
+
+}
 
 
-offTime.addEventListener('change', () => {
-    if (!offTime.checked) {hideItem(time);
-    } else {
-        visibleItem(time);
+todo.addEventListener('keypress', setTodo);
+todoButton.addEventListener('click', () => {
+    hideMenu(todoContainer);
+    if (todoButton.style.opacity === '1'){
+        todoButton.style.opacity = '0.8';
     }
 });
 
+
+
+function removeTodo (removedItem){
+    let storageItem = removedItem.firstChild.nextSibling.innerText;
+    let n;
+    let array = localStorage.getItem('todoCount').split(',');
+    removedItem.parentNode.removeChild(removedItem);
+    for (let i = 0; i < array.length; i++){
+        if (array[i] === storageItem){
+            array[i] = '';
+            localStorage.setItem('todoCount', array.toString())
+            return;
+        }
+    }
+}
+function watch (item, removedItem){
+    item.addEventListener('click', () => {removeTodo(removedItem)})
+}

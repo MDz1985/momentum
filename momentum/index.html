@@ -75,11 +75,12 @@
         <div class="quote"></div>
         <div class="author"></div>
       </div>
-      <div class="links">
-        <a href="https://github.com/MDz1985">MDz1985</a>
-        <a href="https://rs.school/js/">RS-SCHOOL</a>
-        <p>©2021</p>
-      </div>
+      <button class="todo-button"><b>Todo</b></button>
+    </div>
+    <div class="links">
+      <a href="https://github.com/MDz1985">MDz1985</a>
+      <a href="https://rs.school/js/">RS-SCHOOL</a>
+      <p>©2021</p>
     </div>
     <nav class="nav">
       <h2>Settings</h2>
@@ -141,11 +142,23 @@
             <label class="labels" for="player"></label>
           </form>
         </li>
-
-
+        <li class="menu-item">
+          <span class="todo-name">
+            Todo
+          </span>
+          <form class="form">
+            <input class="inputs" id="todo" type="checkbox">
+            <label class="labels" for="todo"></label>
+          </form>
+        </li>
       </ul>
     </nav>
-
+    <div class="todo-container">
+      <div class="todo-box">
+        <h2>Today</h2>
+        <input class="todo" type="text" placeholder="NewTodo">
+      </div>
+    </div>
   </footer>
   <script src="js/main.js"></script>
 <!--  <script type="module" src="js/timeAndGreeting.js"></script>-->

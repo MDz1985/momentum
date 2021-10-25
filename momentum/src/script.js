@@ -505,8 +505,10 @@ lang.addEventListener('change', function (){
 
 
 
-let visible = false
-function hideMenu(value){
+let visibleL = false;
+let visibleR = true;
+function hideMenu(value, visible){
+    console.log(value.style.opacity);
     if (!visible){
         visible = true;
         setTimeout(() => {value.style.opacity = '1';}, 200);
@@ -518,9 +520,10 @@ function hideMenu(value){
         value.style.opacity = '0';
         setTimeout(() => {value.style.display ='none'}, 500);
     }
+    return visible;
 }
 menuButton.addEventListener('click', () => {
-    hideMenu(settingsMenu)
+    visibleL = hideMenu(settingsMenu, visibleL);
 });
 
 function hideItem(item){
@@ -612,10 +615,7 @@ function reloadTodo (value) {
 
 todo.addEventListener('keypress', setTodo);
 todoButton.addEventListener('click', () => {
-    hideMenu(todoContainer);
-    if (todoButton.style.opacity === '1'){
-        todoButton.style.opacity = '0.8';
-    }
+    visibleR = hideMenu(todoContainer, visibleR);
 });
 
 

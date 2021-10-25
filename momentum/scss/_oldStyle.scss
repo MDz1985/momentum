@@ -169,6 +169,8 @@ body {
   height: 30vh;
   min-height: 160px;
   padding: 20px;
+  position: absolute;
+  bottom: 0;
 }
 
 .footer-box{
@@ -192,7 +194,7 @@ body {
 .settings {
   background-size: 32px 32px;
   background: url(../assets/svg/settings.svg) no-repeat center left;
-  width: 30px;
+  min-width: 30px;
   margin: auto 0;
   position: relative;
   height: 30px;
@@ -216,7 +218,7 @@ body {
 }
 
 .nav{
-  background-color: #00000085;
+  background-color: #000000ab;
   position: fixed;
   left: 10px;
   bottom: 100px;

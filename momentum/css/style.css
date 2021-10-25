@@ -933,9 +933,16 @@ body {
 }
 
 .playlist-item {
-  display: inline-flex;
-  justify-content: space-between;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 19px 44fr 3fr;
+}
+
+.playlist-button {
+  height: 13px;
+  border: none;
+  background: url("../assets/svg/play.svg") no-repeat left center;
+  background-size: contain;
+  opacity: 0.8;
 }
 
 .player-controls {
@@ -1005,13 +1012,15 @@ body {
 
 .player-icon:hover,
 .slider-icon:hover,
-.change-quote:hover {
+.change-quote:hover,
+.playlist-button:hover {
   opacity: 1;
 }
 
 .player-icon:active,
 .slider-icon:active,
-.change-quote:active {
+.change-quote:active,
+.playlist-button:active {
   border: 0;
   outline: 0;
   transform: scale(1.1);

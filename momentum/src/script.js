@@ -35,6 +35,7 @@ const volumeButton = player.querySelector('.volume');
 
 
 const playListContainer = player.querySelector('.play-list');
+// const playlistButton = player.querySelectorAll('.playlist-button');
 
 
 const lang = document.querySelector('.lang');
@@ -55,6 +56,7 @@ const offQuotes = document.getElementById('quotes');
 const offWeather = document.getElementById('weather');
 const offPlayer = document.getElementById('player');
 const offTodo = document.getElementById('todo');
+const menuInputs = document.querySelectorAll('.inputs');
 
 const todoContainer = document.querySelector('.todo-container');
 const todo = document.querySelector('.todo');
@@ -62,6 +64,7 @@ const todoButton = document.querySelector('.todo-button');
 const xButton = document.querySelectorAll('.x');
 const checkDiv = document.querySelectorAll('.checkDiv')
 
+const elementArray = [time,date,greeting,quotes,weather,player,todoContainer,name,changeQuote,todo];
 
 
 
@@ -133,6 +136,9 @@ function setLocalStorage() {
     } else {
         localStorage.setItem('todoCount', localStorage.getItem('todoCount') + ',' + todo.value);
     }
+    for (let i = 0; i < menuInputs.length; i++){
+        localStorage.setItem(`${i}`, `yes${menuInputs[i].checked}`);
+    }
 }
 window.addEventListener('beforeunload', setLocalStorage)
 function getLocalStorage() {
@@ -150,6 +156,29 @@ function getLocalStorage() {
         for (let i = 0; i < array.length; i++){
             if (array[i] !== ''){
                 reloadTodo(array[i]);
+            }
+        }
+    }
+
+    let id;
+    for (let i = 0; i < menuInputs.length; i++){
+        if(localStorage.getItem(`${i}`)) {
+            if (localStorage.getItem(`${i}`) === 'yestrue'){
+                menuInputs[i].checked = true;
+                visibleItem(elementArray[i]);
+                if (i === 6){
+                    todoButton.style.visibility = 'visible';
+                    todoButton.style.pointerEvents = 'all';
+                }
+            }else {
+                menuInputs[i].checked = false;
+                hideItem(elementArray[i]);
+                if(i === 2){
+                    hideItem(elementArray[7]);
+                }
+                if(i === 3){
+                    hideItem(elementArray[8]);
+                }
             }
         }
     }
@@ -331,6 +360,7 @@ function playAudio() {
         audio.play();
         isPlay = true;
         playButton.classList.add('pause'); // добавляет элементу класс;
+        playlistButton[playNum].classList.add('pause');
     } else {
         // console.log(audio.currentTime);
         audioTime = audio.currentTime;
@@ -338,12 +368,14 @@ function playAudio() {
         audio.pause();
         isPlay = false;
         playButton.classList.remove('pause');
+        playlistButton[playNum].classList.remove('pause');
     }
 }
 
 
 function playPrevious(){
     playListContainer.childNodes[playNum].style.color = 'white';
+    playlistButton[playNum].classList.remove('pause');
     if (playNum === 0){
         playNum = playList.length - 1;
     }else {
@@ -354,6 +386,7 @@ function playPrevious(){
 }
 function playNext(){
     playListContainer.childNodes[playNum].style.color = 'white';
+    playlistButton[playNum].classList.remove('pause');
     if (playNum === playList.length - 1){
         playNum = 0;
     }else {
@@ -362,6 +395,35 @@ function playNext(){
     isPlay = false;
     playAudio()
 }
+function playPlaylist(number){
+    // for (let i = 0; i < playlistButton.length; i++){
+        if (number !== playNum || isPlay !== true){
+            isPlay = false;
+        }
+
+
+
+
+
+
+
+
+    for (let i = 0; i < playlistButton.length; i++){
+        playListContainer.childNodes[i].style.color = 'white';
+        playlistButton[i].classList.remove('pause');
+    }
+    playNum = number;
+    playAudio();
+}
+// function pausePlaylist(number){
+//     for (let i of playListContainer.childNodes){
+//         i.style.color = 'white';
+//     }
+//     playNum = number;
+//     playAudio();
+// }
+
+
 playButton.addEventListener('click', playAudio);
 playPrevButton.addEventListener('click', playPrevious);
 playNextButton.addEventListener('click', playNext);
@@ -457,13 +519,30 @@ import playList from './playList.js';
 playList.forEach(el => {
     const li = document.createElement('li');
     li.classList.add('playlist-item');
-    li.textContent = el.title;
     playListContainer.append(li);
+    const button = document.createElement('button');
+    button.classList.add('playlist-button');
+    li.append(button);
+
+    const spanTitle = document.createElement('span');
+    spanTitle.textContent = el.title;
+    li.append(spanTitle);
     const span = document.createElement('span');
     span.textContent = el.duration;
     li.append(span);
 
 })
+const playlistButton = player.querySelectorAll('.playlist-button');
+for (let i = 0; i < playlistButton.length; i++){
+    playlistButton[i].addEventListener('click', () => {
+        // if (i === playNum && isPlay === true){
+        //     pausePlaylist(i);
+        // } else {
+            playPlaylist(i);
+        // }
+    })
+}
+
 
 //TRANSLATE
 const greetingTranslation = {

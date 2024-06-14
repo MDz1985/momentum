@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="assets/favicon.ico" rel="shortcut icon" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>momentum</title>
+</head>
+<body type="js">
+  <header class="header">
+    <div class="player">
+      <div class="player-controls">
+        <div class="controls">
+          <button class="play-prev player-icon"></button>
+          <button class="play player-icon"></button>
+          <button class="play-next player-icon"></button>
+        </div>
+        <div class="sliders">
+          <p class="title"></p>
+          <div class="progress-box">
+            <span class="current-time">
+              00:00
+            </span>
+            <div class="progress progress-slider">
+              <div class="progress-filled progress-slider-filled"></div>
+            </div>
+            <span class="duration">
+              00:00
+            </span>
+            <div class="progress volume-slider">
+              <div class="progress-filled volume-slider-filled"></div>
+            </div>
+            <button class="volume player-icon"></button>
+          </div>
+        </div>
+      </div>
+      <ul class="play-list"></ul>
+    </div>
+    <form>
+      <select class="lang">
+        <option>English</option>
+        <option>Русский</option>
+      </select>
+    </form>
+    <div class="weather">
+      <input type="text" class="city"/>
+      <i class="weather-icon owf"></i>
+      <div class="weather-error"></div>
+      <div class="description-container">
+        <span class="temperature"></span>
+        <span class="weather-description"></span>
+      </div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+    </div>
+  </header>
+  <main class="main">
+    <div class="slider-icons">
+      <button class="slide-prev slider-icon"></button>
+      <button class="slide-next slider-icon"></button>
+    </div>
+    <time class="time"></time>
+    <date class="date"></date>
+    <div class="greeting-container">
+      <span class="greeting"></span>
+      <input type="text" class="name" placeholder="<Your Name>"/>
+    </div>
+  </main>
+  <footer class="footer">
+    <button class="change-quote"></button>
+    <div class="footer-box">
+      <button class="settings"></button>
+      <div class="quotes">
+        <div class="quote"></div>
+        <div class="author"></div>
+      </div>
+      <button class="todo-button"><b>Todo</b></button>
+    </div>
+    <div class="links">
+      <a href="https://github.com/MDz1985">MDz1985</a>
+      <a href="https://rs.school/js/">
+        <img src="assets/svg/rs_school_js.svg" alt="RS-SCHOOL" height="16">
+      </a>
+      <p>©2021</p>
+    </div>
+    <nav class="nav">
+      <h2>Settings</h2>
+      <ul class="menu">
+        <li class="menu-item">
+          <h3>Show</h3>
+        </li>
+        <li class="menu-item">
+          <span>
+            Time
+          </span>
+          <form class="form">
+            <input class="inputs" id="time" type="checkbox" checked>
+            <label class="labels" for="time"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span>
+            Date
+          </span>
+          <form class="form">
+            <input class="inputs" id="date" type="checkbox" checked>
+            <label class="labels" for="date"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span class="greeting-name">
+            Greeting
+          </span>
+          <form class="form">
+            <input class="inputs" id="greeting" type="checkbox" checked>
+            <label class="labels" for="greeting"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span class="quotes-name">
+            Quotes
+          </span>
+          <form class="form">
+            <input class="inputs" id="quotes" type="checkbox" checked>
+            <label class="labels" for="quotes"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span class="weather-name">
+            Weather
+          </span>
+          <form class="form">
+            <input class="inputs" id="weather" type="checkbox" checked>
+            <label class="labels" for="weather"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span class="player-name">
+            Player
+          </span>
+          <form class="form">
+            <input class="inputs" id="player" type="checkbox" checked>
+            <label class="labels" for="player"></label>
+          </form>
+        </li>
+        <li class="menu-item">
+          <span class="todo-name">
+            Todo
+          </span>
+          <form class="form">
+            <input class="inputs" id="todo" type="checkbox">
+            <label class="labels" for="todo"></label>
+          </form>
+        </li>
+      </ul>
+    </nav>
+    <div class="todo-container">
+      <div class="todo-box">
+        <h2>Today</h2>
+        <input class="todo" type="text" placeholder="NewTodo">
+      </div>
+    </div>
+  </footer>
+  <script src="js/main.js"></script>
+<!--  <script type="module" src="js/timeAndGreeting.js"></script>-->
+<!--  <script src="js/slider.js"></script>-->
+
+</body>
+</html>
